@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <h1>История транзакций</h1>
+
+    <h2>Транзакции, отправленные вами:</h2>
+    <ul>
+        {% for transaction, sender_full_name in transactions_received %}
+            <li>{{ transaction.amount }} руб. для {{ sender_full_name }} ({{ transaction.timestamp.strftime('%d-%m-%Y %H:%M:%S') }})</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Транзакции, отправленные вам:</h2>
+    <ul>
+        {% for transaction, receiver_full_name in transactions_sent %}
+            <li>{{ transaction.amount }} руб. от {{ receiver_full_name }} ({{ transaction.timestamp.strftime('%d-%m-%Y %H:%M:%S') }})</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

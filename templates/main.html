@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+    <style>
+        a {
+            position: relative;
+            margin: 0px 25px 0px 25px;
+            text-decoration: none;
+            color:white
+        }
+
+        button {
+            border: 3px solid white;
+            border-radius: 15px;
+            background-color: #008E87;
+            color: white;
+        }
+
+        .logout {
+            position: relative;
+            top: 2px;
+            width: 30px;
+            height: 12px;
+            left: 34px;
+        }
+    </style>
+</head>
+<body>
+    <header style="height: 4vw;">
+        <span style="font-size: 3vw; margin-right: 30px">Банк "Толкин"</span>
+
+        {% if 'c_username' in session%}
+        
+            <button style="margin: 20px"><a href="{{ url_for('transaction_history') }}">История транзакций</a></button>
+            <button><a href="{{ url_for('transfer_money') }}">Перевести деньги</a></button>
+        <span  style="right: -7vw; position: relative; color:black">{{ name }}</span>
+        <button style="position: relative; left: 15vw;">
+            <a href="{{ url_for('logout') }}">Выйти</a>
+        </button>
+
+        {% elif 'm_username' in session %}
+
+        <button style="color: white; background-color: #008E87; left: 5vw; position: relative;" href="">
+            <a style="color: white" href="/app/register" target="_self">Зарегистрировать нового пользователя</a>
+        </button>
+        <button style="color: white; background-color: #008E87; left: 5vw; position: relative;" href="">
+            <a style="color: white" href="/app/registerAdm" target="_self">Зарегистрировать нового менеджера</a>
+        </button>
+        <span  style="right: -7vw; position: relative; color:white">{{ name }}</span>
+        <button style="position: relative; left: 10vw;">
+            <a href="{{ url_for('logout') }}">Выйти</a>
+        </button>
+
+        {% endif %}
+
+    </header>
+    
+    <main>
+        {% if 'c_username' in session %}
+        <h3>Ваш баланс: {{ balance }} руб.</h3>
+        <h3>Ваше ФИО: {{ c_fullname }}</h3>
+        <h3>Ваш телефон: {{ phone }}</h3>
+        <h3>Ваш номер счета: {{ account_number }}</h3>
+        {% endif %}
+
+        {% if 'm_username' in session %}
+        <button style="left: 42vw; position: relative;">
+            <a href="{{ url_for('all_users') }}">Список пользователей</a>
+        </button>
+        {% endif %}
+    </main>
+
+    <footer>
+        Банк "Толкин"
+    </footer>
+    
+</body>
+</html>
